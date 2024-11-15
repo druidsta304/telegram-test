@@ -1,16 +1,15 @@
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Application, CommandHandler, CallbackContext
 
 # Функция для обработки команды /start
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Привет! Я ваш Telegram бот.')
+async def start(update: Update, context: CallbackContext) -> None:
+    await update.message.reply_text('Привет! Я ваш Telegram бот.')
 
 # Основной код
-updater = Updater("5510979721:AAFPfKc8Cu8Wx8hIaaEFvqe5Lvsvqh0_vRw")
+app = Application.builder().token("5510979721:AAFPfKc8Cu8Wx8hIaaEFvqe5Lvsvqh0_vRw").build()
 
 # Регистрация обработчика команды /start
-updater.dispatcher.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("start", start))
 
 # Запуск бота
-updater.start_polling()
-updater.idle()
+app.run_polling()
